@@ -168,6 +168,7 @@
 ../rtl/gpio/gpio_reg_pkg.sv
 ../rtl/clint/clint_reg_pkg.sv
 ../rtl/obi_timer/obi_timer_reg_pkg.sv
+../rtl/user_domain/pwm_gen/pwm_gen_pkg.sv
 ../rtl/core_wrap.sv
 ../rtl/bootrom/bootrom.sv
 ../rtl/soc_ctrl/soc_ctrl_regs.sv
@@ -177,6 +178,10 @@
 ../rtl/obi_timer/obi_timer.sv
 ../rtl/croc_domain.sv
 ../rtl/user_domain.sv
+../rtl/user_domain/pwm_gen/pwm_gen_reg.sv
+../rtl/user_domain/pwm_gen/pwm_gen_clk_dividers.sv
+../rtl/user_domain/pwm_gen/pwm_gen_driver.sv
+../rtl/user_domain/pwm_gen/pwm_gen.sv
 ../rtl/croc_soc.sv
 ../rtl/croc_chip.sv
 ../rtl/test/tb_croc_pkg.sv
