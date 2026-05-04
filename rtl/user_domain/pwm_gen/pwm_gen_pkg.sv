@@ -1,4 +1,9 @@
 
+// TODO List
+// * implement different operation modes center aligned
+// * implement clock divider + clk gating
+// * check the assertations of NrPWMGenerators (can be either max GPIO or max assigned adressable space)
+
 
 package pwm_gen_pkg;
 
@@ -60,10 +65,17 @@ package pwm_gen_pkg;
   
   // The adresses are 4 bytes aligned => (4bytes = 1word = 32bits)
   // So the first two bits are useless
-  localparam int AddressBits = 8;
+  // And my adress has a range of 32'h0000_1000 = range of 3*4 bits = 12 bits
+  // 0b[xxxxxx][xxxx][xx]
+  // 0b[GROUP0][GRP1][G2]
+  // GROUP 0) 6bits => 64 adressable pwm drivers
+  // GROUP 1) 4bits => 16 usable word register offsets
+  // GROUP 2) 2bits => 4  unused combinations (for word alignment)
+  localparam int AddressInstanceBits       = 6;
+  localparam int AddressRegisterOffsetBits = 4;
 
-  localparam bit [AddressBits-1:0] RegAddrControl = 'h00;
-  localparam bit [AddressBits-1:0] RegAddrTop     = 'h04;
-  localparam bit [AddressBits-1:0] RegAddrCompare = 'h08;
-
+  localparam bit [AddressRegisterOffsetBits-1:0] RegAddrControlWordOffset   = 'h0;
+  localparam bit [AddressRegisterOffsetBits-1:0] RegAddrTopWordOffset       = 'h1;
+  localparam bit [AddressRegisterOffsetBits-1:0] RegAddrCompareWordOffset   = 'h2;
+  
 endpackage

@@ -2,6 +2,10 @@
 // Library used to control the pwm generator
 //
 
+// TODOs
+// * implement different pwm adressers
+// * (evtl) implement helper functions for percentage
+
 
 #pragma once
 
@@ -10,9 +14,9 @@
 
 
 #define USER_PWM_ADDRESS               0x20000000
-#define USER_PWM_CONTROL_REG_OFFSET    0x00
-#define USER_PWM_CNT_TOP_REG_OFFSET    0x04
-#define USER_PWM_CNT_COMP_REG_OFFSET   0x08
+#define USER_PWM_CONTROL_REG_OFFSET    (0x0 << 2)
+#define USER_PWM_CNT_TOP_REG_OFFSET    (0x1 << 2)
+#define USER_PWM_CNT_COMP_REG_OFFSET   (0x2 << 2)
 
 
 typedef enum {
@@ -30,6 +34,6 @@ typedef enum {
 } UserPWMClkDiv;
 
 
-int user_pwm_set_control(UserPWMMode mode, UserPWMClkDiv clkdiv);
-int user_pwm_set_counter_top(uint32_t counter_top);
-int user_pwm_set_counter_compare(uint32_t counter_compare);
+int user_pwm_set_control(uint32_t instance, UserPWMMode mode, UserPWMClkDiv clkdiv);
+int user_pwm_set_counter_top(uint32_t instance, uint32_t counter_top);
+int user_pwm_set_counter_compare(uint32_t instance, uint32_t counter_compare);

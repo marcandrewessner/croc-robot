@@ -34,7 +34,7 @@ package user_pkg;
     '{
       idx:        UserPWM,
       start_addr: croc_pkg::UserBaseAddr,
-      end_addr:   croc_pkg::UserBaseAddr + 32'h1000_0000
+      end_addr:   croc_pkg::UserBaseAddr + 32'h0000_1000
     }
   };
   // All addresses outside the defined address rules go to the error subordinate

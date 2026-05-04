@@ -15,13 +15,18 @@ int main() {
   
   printf("Starting PWM\n");
 
-  user_pwm_set_counter_top(0xEE);
-  user_pwm_set_counter_compare(0xE0);
-  user_pwm_set_control(USER_PWM_MODE_EDGE_ALIGNED, USER_PWM_CLK_DIV_1);
+  //int i=1;
+  for(int i=0; i<3; i++){
+    user_pwm_set_counter_top(i, 0xEE);
+    user_pwm_set_counter_compare(i, 0x30*(i+1));
+    user_pwm_set_control(i, USER_PWM_MODE_EDGE_ALIGNED, USER_PWM_CLK_DIV_1);
+  }
   
   printf("this is a test to see if the transaction works\n");
   
-  user_pwm_set_control(USER_PWM_MODE_DISABLED, USER_PWM_CLK_DIV_1),
+  for(int i=0; i<1; i++){
+    user_pwm_set_control(i, USER_PWM_MODE_DISABLED, USER_PWM_CLK_DIV_1);
+  }
   printf("disabled");
 
   uart_write_flush();

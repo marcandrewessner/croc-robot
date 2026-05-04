@@ -42,7 +42,7 @@ module pwm_gen_driver import pwm_gen_pkg::*; #(
     endcase
   end
 
-  assign counter_at_top = (counter_q == counter_top_i);
+  assign counter_at_top = (counter_q >= counter_top_i);
   assign compare_is_bigger = (counter_q >= counter_compare_i);
 
   // Standard flip flop
@@ -52,6 +52,6 @@ module pwm_gen_driver import pwm_gen_pkg::*; #(
   //////////////////////////////////////////////////
   // Output signal conditioning //
   //////////////////////////////////////////////////
-  assign signal_o = compare_is_bigger && (mode_i!=PWM_MODE_DISABLED);
+  assign signal_o = ~compare_is_bigger && (mode_i!=PWM_MODE_DISABLED);
 
 endmodule 
