@@ -7,3 +7,4 @@
 [submodule "dronesim/assets/mujoco_menagerie"]
 	path = dronesim/assets/mujoco_menagerie
 	url = https://github.com/google-deepmind/mujoco_menagerie.git
+	ignore = dirty

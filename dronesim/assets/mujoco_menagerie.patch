@@ -1,0 +1,16 @@
+diff --git a/skydio_x2/x2.xml b/skydio_x2/x2.xml
+index 34368c4..24c0103 100644
+--- a/skydio_x2/x2.xml
++++ b/skydio_x2/x2.xml
+@@ -63,9 +63,10 @@
+     <gyro name="body_gyro" site="imu"/>
+     <accelerometer name="body_linacc" site="imu"/>
+     <framequat name="body_quat" objtype="site" objname="imu"/>
++    <framepos name="body_pos" objtype="site" objname="imu"/>
+   </sensor>
+ 
+   <keyframe>
+-    <key name="hover" qpos="0 0 .3 1 0 0 0" ctrl="3.2495625 3.2495625 3.2495625 3.2495625"/>
++    <key name="hover" qpos="0 0 1.0 1 0 0 0" ctrl="3.2495625 3.2495625 3.2495625 3.2495625"/>
+   </keyframe>
+ </mujoco>
