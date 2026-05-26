@@ -8,26 +8,20 @@
 #include "uart.h"
 #include "print.h"
 #include "config.h"
-#include "user_pwm_gen.h"
+#include "drone_controller.h"
 
 int main() {
   uart_init();
   
   printf("Starting PWM\n");
 
-  //int i=1;
-  for(int i=0; i<3; i++){
-    user_pwm_set_counter_top(i, 0xEE);
-    user_pwm_set_counter_compare(i, 0x30*(i+1));
-    user_pwm_set_control(i, USER_PWM_MODE_EDGE_ALIGNED, USER_PWM_CLK_DIV_1);
-  }
-  
-  printf("this is a test to see if the transaction works\n");
-  
-  for(int i=0; i<1; i++){
-    user_pwm_set_control(i, USER_PWM_MODE_DISABLED, USER_PWM_CLK_DIV_1);
-  }
-  printf("disabled");
+  DRONE_CONTROLLER_REG->pwm_ch[0].COUNT_TOP = 10;
+  DRONE_CONTROLLER_REG->pwm_ch[0].COUNT_COMPARE = 5;
+  DRONE_CONTROLLER_REG->pwm_ch[0].CONF = PWM_MODE_EDGE_ALIGNED<<PWM_CHANN_MODE_BP;
+
+  for(volatile int i=0; i<10000; i++);
+
+  DRONE_CONTROLLER_REG->pwm_ch[0].CONF = PWM_MODE_DISABLED<<PWM_CHANN_MODE_BP;
 
   uart_write_flush();
   return 0;

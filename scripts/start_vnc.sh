@@ -61,7 +61,7 @@ if [ -z ${DOCKER_TAG+z} ]; then
 fi
 
 if [ -z ${CONTAINER_NAME+z} ]; then
-	CONTAINER_NAME="iic-osic-tools_xvnc_uid_"$(id -u)
+	CONTAINER_NAME="iic-osic-tools_xvnc_crocrobot_uid_"$(id -u)
 fi
 
 if [[ "$OSTYPE" == "linux"* ]]; then

@@ -1,0 +1,167 @@
+
+
+///////////////////////////////
+// PWM CHANNEL ADDRESS MAP //
+///////////////////////////////
+
+enum pwm_mode_e {
+  PWM_MODE_DISABLED       = 2'b00;  
+  PWM_MODE_EDGE_ALIGNED   = 2'b01;
+  PWM_MODE_CENTER_ALIGNED = 2'b10;
+  PWM_MODE_RESERVED       = 2'b11;
+};
+
+enum pwm_clk_div_e {
+  CLK_DIV_1 = 2'b00;
+  CLK_DIV_2 = 2'b01;
+  CLK_DIV_4 = 2'b10;
+  CLK_DIV_8 = 2'b11;
+};
+
+regfile pwm_channel_t {
+  name = "PWM Channel";
+  desc = "This is a perchannel addressmap";
+
+  reg {
+    name = "Register name";
+    desc = "Register description";
+    
+    field {
+      name   = "Mode";
+      desc   = "Select what mode is active for this channel";
+      encode = pwm_mode_e;
+      sw = rw;
+      hw = r;
+    } MODE[2] = pwm_mode_e::PWM_MODE_DISABLED;
+
+    field {
+      name = "Clock Div";
+      desc = "Clock division for this mode";
+      encode = pwm_clk_div_e;
+      sw = rw;
+      hw = r;
+    } CLK_DIV[2] = pwm_clk_div_e::CLK_DIV_1;
+
+  } CONF;
+
+  reg {
+    name = "Counter Top";
+    desc = "Define the top value of the counter, Reset to zero when reached";
+    field {
+      name="Data";
+      sw = rw;
+      hw = r;
+    } DATA[32] = 0x00000000;
+  } COUNT_TOP;
+
+  reg {
+    name = "Counter Compare";
+    desc = "Define the compare value of counter; if cnt_val > COUNT_COMPARE we get HIGH on output";
+    field {
+      name = "Data";
+      sw = rw;
+      hw = r;
+    } DATA[32] = 0x00000000;
+  } COUNT_COMPARE;
+
+};
+
+///////////////////////////////
+// Controller u=Kx+u0 //
+///////////////////////////////
+// TODO: different modes
+// direct pwm read / write
+// value conversion
+regfile controller_t {
+  name = "Controller u=Kx+u0";
+  desc = "Register map for the controller";
+
+  ///////////////////////////////
+  // Configuration //
+  ///////////////////////////////
+  reg {
+    name = "Command register";
+    desc = "Command register, single strobe";
+
+    field {
+      name = "Run Calculation";
+      desc = "Directly run the calculation";
+      sw = w;
+      hw = r;
+      singlepulse;
+    } RUN_CALC[1] = 0x0;
+
+  } CMD;
+
+
+  ///////////////////////////////
+  // Data pointers //
+  ///////////////////////////////
+
+  reg {
+    name = "K matrix memory pointer";
+    desc = "Memory pointer to the K matrix, expected Matrix: K(4x12) Q4.4, row maj";
+    field {
+      name = "Pointer";
+      sw = w;
+      hw = r;
+    } POINTER[32] = 0x00000000;
+  } K_MATRIX;
+
+  reg {
+    name = "State refernce x_ref";
+    desc = "Memory pointer to the x_ref vector, expected Vector: x_ref(12) Q4.4, row maj";
+    field {
+      name = "Pointer";
+      sw = w;
+      hw = r;
+    } POINTER[32] = 0x00000000;
+  } X_REF_VEC;
+
+  reg {
+    name = "State input x_in";
+    desc = "Memory pointer to the x_in vector, expected Vector: x_in(12) Q4.4, row maj";
+    field {
+      name = "Pointer";
+      sw = w;
+      hw = r;
+    } POINTER[32] = 0x00000000;
+  } X_IN_VEC;
+
+  reg {
+    name = "Open loop control U0";
+    desc = "Memory pointer to the U0 vector, expected Vector: U0(4) Q4.4, row maj";
+    field {
+      name = "Pointer";
+      sw = w;
+      hw = r;
+    } POINTER[32] = 0x00000000;
+  } U0_VEC;
+
+  reg {
+    name = "Open loop control U_out=K(Xin-Xref)+U0";
+    desc = "Memory pointer to the U_out vector, output Vector: U0(4) Q4.4, row maj";
+    field {
+      name = "Pointer";
+      sw = w;
+      hw = r;
+    } POINTER[32] = 0x00000000;
+  } U_OUT_VEC;
+
+};
+
+
+///////////////////////////////
+// Combine Maps to one //
+///////////////////////////////
+addrmap drone_controller_reg {
+
+  default accesswidth = 32;
+  default regwidth = 32;
+
+  // tightly packed automatically
+  pwm_channel_t pwm_ch[4];
+
+  // follows immediately after pwm channels
+  controller_t controller;
+};
