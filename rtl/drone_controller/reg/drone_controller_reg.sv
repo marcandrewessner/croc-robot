@@ -204,6 +204,18 @@ module drone_controller_reg #(
                     logic next;
                     logic load_next;
                 } RUN_CALC;
+                struct {
+                    logic next;
+                    logic load_next;
+                } UPDATE_CONTROLLER;
+                struct {
+                    logic next;
+                    logic load_next;
+                } UPDATE_CONTROLLER_REFERENCE;
+                struct {
+                    logic next;
+                    logic load_next;
+                } UPDATE_CONTROLLER_STATE;
             } CMD;
             struct {
                 struct {
@@ -265,6 +277,15 @@ module drone_controller_reg #(
                 struct {
                     logic value;
                 } RUN_CALC;
+                struct {
+                    logic value;
+                } UPDATE_CONTROLLER;
+                struct {
+                    logic value;
+                } UPDATE_CONTROLLER_REFERENCE;
+                struct {
+                    logic value;
+                } UPDATE_CONTROLLER_STATE;
             } CMD;
             struct {
                 struct {
@@ -415,6 +436,84 @@ module drone_controller_reg #(
         end
     end
     assign hwif_out.controller.CMD.RUN_CALC.value = field_storage.controller.CMD.RUN_CALC.value;
+    // Field: drone_controller_reg.controller.CMD.UPDATE_CONTROLLER
+    always_comb begin
+        automatic logic [0:0] next_c;
+        automatic logic load_next_c;
+        next_c = field_storage.controller.CMD.UPDATE_CONTROLLER.value;
+        load_next_c = '0;
+        if(decoded_reg_strb.controller.CMD && decoded_req_is_wr) begin // SW write
+            next_c = (field_storage.controller.CMD.UPDATE_CONTROLLER.value & ~decoded_wr_biten[1:1]) | (decoded_wr_data[1:1] & decoded_wr_biten[1:1]);
+            load_next_c = '1;
+        end else begin // singlepulse clears back to 0
+            next_c = '0;
+            load_next_c = '1;
+        end
+        field_combo.controller.CMD.UPDATE_CONTROLLER.next = next_c;
+        field_combo.controller.CMD.UPDATE_CONTROLLER.load_next = load_next_c;
+    end
+    always_ff @(posedge clk) begin
+        if(rst) begin
+            field_storage.controller.CMD.UPDATE_CONTROLLER.value <= 1'h0;
+        end else begin
+            if(field_combo.controller.CMD.UPDATE_CONTROLLER.load_next) begin
+                field_storage.controller.CMD.UPDATE_CONTROLLER.value <= field_combo.controller.CMD.UPDATE_CONTROLLER.next;
+            end
+        end
+    end
+    assign hwif_out.controller.CMD.UPDATE_CONTROLLER.value = field_storage.controller.CMD.UPDATE_CONTROLLER.value;
+    // Field: drone_controller_reg.controller.CMD.UPDATE_CONTROLLER_REFERENCE
+    always_comb begin
+        automatic logic [0:0] next_c;
+        automatic logic load_next_c;
+        next_c = field_storage.controller.CMD.UPDATE_CONTROLLER_REFERENCE.value;
+        load_next_c = '0;
+        if(decoded_reg_strb.controller.CMD && decoded_req_is_wr) begin // SW write
+            next_c = (field_storage.controller.CMD.UPDATE_CONTROLLER_REFERENCE.value & ~decoded_wr_biten[2:2]) | (decoded_wr_data[2:2] & decoded_wr_biten[2:2]);
+            load_next_c = '1;
+        end else begin // singlepulse clears back to 0
+            next_c = '0;
+            load_next_c = '1;
+        end
+        field_combo.controller.CMD.UPDATE_CONTROLLER_REFERENCE.next = next_c;
+        field_combo.controller.CMD.UPDATE_CONTROLLER_REFERENCE.load_next = load_next_c;
+    end
+    always_ff @(posedge clk) begin
+        if(rst) begin
+            field_storage.controller.CMD.UPDATE_CONTROLLER_REFERENCE.value <= 1'h0;
+        end else begin
+            if(field_combo.controller.CMD.UPDATE_CONTROLLER_REFERENCE.load_next) begin
+                field_storage.controller.CMD.UPDATE_CONTROLLER_REFERENCE.value <= field_combo.controller.CMD.UPDATE_CONTROLLER_REFERENCE.next;
+            end
+        end
+    end
+    assign hwif_out.controller.CMD.UPDATE_CONTROLLER_REFERENCE.value = field_storage.controller.CMD.UPDATE_CONTROLLER_REFERENCE.value;
+    // Field: drone_controller_reg.controller.CMD.UPDATE_CONTROLLER_STATE
+    always_comb begin
+        automatic logic [0:0] next_c;
+        automatic logic load_next_c;
+        next_c = field_storage.controller.CMD.UPDATE_CONTROLLER_STATE.value;
+        load_next_c = '0;
+        if(decoded_reg_strb.controller.CMD && decoded_req_is_wr) begin // SW write
+            next_c = (field_storage.controller.CMD.UPDATE_CONTROLLER_STATE.value & ~decoded_wr_biten[3:3]) | (decoded_wr_data[3:3] & decoded_wr_biten[3:3]);
+            load_next_c = '1;
+        end else begin // singlepulse clears back to 0
+            next_c = '0;
+            load_next_c = '1;
+        end
+        field_combo.controller.CMD.UPDATE_CONTROLLER_STATE.next = next_c;
+        field_combo.controller.CMD.UPDATE_CONTROLLER_STATE.load_next = load_next_c;
+    end
+    always_ff @(posedge clk) begin
+        if(rst) begin
+            field_storage.controller.CMD.UPDATE_CONTROLLER_STATE.value <= 1'h0;
+        end else begin
+            if(field_combo.controller.CMD.UPDATE_CONTROLLER_STATE.load_next) begin
+                field_storage.controller.CMD.UPDATE_CONTROLLER_STATE.value <= field_combo.controller.CMD.UPDATE_CONTROLLER_STATE.next;
+            end
+        end
+    end
+    assign hwif_out.controller.CMD.UPDATE_CONTROLLER_STATE.value = field_storage.controller.CMD.UPDATE_CONTROLLER_STATE.value;
     // Field: drone_controller_reg.controller.K_MATRIX.POINTER
     always_comb begin
         automatic logic [31:0] next_c;

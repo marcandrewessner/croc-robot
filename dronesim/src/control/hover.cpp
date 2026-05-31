@@ -7,7 +7,8 @@
 
 
 // Quantize to QA.B fixed-point format (signed, A+B total bits)
-template<int A = 4, int B = 4, typename Derived>
+// note A=3 is taken because one is sign bit
+template<int A = 3, int B = 4, typename Derived>
 inline void quant(Eigen::MatrixBase<Derived>& m){
   constexpr mjtNum scale = mjtNum(1LL << B);
   constexpr mjtNum i_max = mjtNum( (1LL << (A + B - 1)) - 1);
@@ -75,7 +76,7 @@ void derive_inner_loop_controller(mjModel* m, mjData* d){
 
   // Now for LQR we define Q and R
   auto Q = (
-    Eigen::Vector<mjtNum, 12>() << 3, 3, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1
+    Eigen::Vector<mjtNum, 12>() << 3, 3, 5, 1, 1, 1, 1, 1, 1, 1, 1, 1
   ).finished().asDiagonal();
 
   auto R = Eigen::Matrix<mjtNum, 4, 4>::Identity();

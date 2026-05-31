@@ -34,9 +34,10 @@ sources:
   - rtl/clint/clint_reg_pkg.sv
   - rtl/obi_timer/obi_timer_reg_pkg.sv
   # add your design files containing anything but modules (packages) here
-  - rtl/drone_controller/pwm/pwm_gen_pkg.sv
-  - rtl/drone_controller/reg/drone_controller_reg_pkg.sv
   - rtl/drone_controller/drone_controller_pkg.sv
+  - rtl/drone_controller/reg/drone_controller_reg_pkg.sv
+  - rtl/drone_controller/pwm/pwm_gen_pkg.sv
+  - rtl/drone_controller/controller/controller_pkg.sv
 
     # RTL
   - target: not(netlist_yosys)
@@ -58,6 +59,8 @@ sources:
       - rtl/drone_controller/pwm/pwm_gen_top.sv
       - rtl/drone_controller/pwm/pwm_gen_driver.sv
       - rtl/drone_controller/pwm/pwm_gen_clk_dividers.sv
+      - rtl/drone_controller/controller/controller_top.sv
+      - rtl/drone_controller/controller/controller_memory_interface.sv
       # Level 3
       - rtl/croc_soc.sv
 

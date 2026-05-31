@@ -4,14 +4,14 @@
 // PWM CHANNEL ADDRESS MAP //
 ///////////////////////////////
 
-enum pwm_mode_e {
+enum pwm_mode {
   PWM_MODE_DISABLED       = 2'b00;  
-  PWM_MODE_EDGE_ALIGNED   = 2'b01;
+  pwm_modeDGE_ALIGNED   = 2'b01;
   PWM_MODE_CENTER_ALIGNED = 2'b10;
   PWM_MODE_RESERVED       = 2'b11;
 };
 
-enum pwm_clk_div_e {
+enum pwm_clk_div {
   CLK_DIV_1 = 2'b00;
   CLK_DIV_2 = 2'b01;
   CLK_DIV_4 = 2'b10;
@@ -29,18 +29,18 @@ regfile pwm_channel_t {
     field {
       name   = "Mode";
       desc   = "Select what mode is active for this channel";
-      encode = pwm_mode_e;
+      encode = pwm_mode;
       sw = rw;
       hw = r;
-    } MODE[2] = pwm_mode_e::PWM_MODE_DISABLED;
+    } MODE[2] = pwm_mode::PWM_MODE_DISABLED;
 
     field {
       name = "Clock Div";
       desc = "Clock division for this mode";
-      encode = pwm_clk_div_e;
+      encode = pwm_clk_div;
       sw = rw;
       hw = r;
-    } CLK_DIV[2] = pwm_clk_div_e::CLK_DIV_1;
+    } CLK_DIV[2] = pwm_clk_div::CLK_DIV_1;
 
   } CONF;
 
@@ -69,6 +69,7 @@ regfile pwm_channel_t {
 ///////////////////////////////
 // Controller u=Kx+u0 //
 ///////////////////////////////
+
 // TODO: different modes
 // direct pwm read / write
 // value conversion
@@ -91,6 +92,30 @@ regfile controller_t {
       singlepulse;
     } RUN_CALC[1] = 0x0;
 
+    field {
+      name = "Update Controller";
+      desc = "Read in the controller matrix K and open loop vec U0";
+      sw = w;
+      hw = r;
+      singlepulse;
+    } UPDATE_CONTROLLER[1] = 0; 
+
+    field {
+      name = "Update Reference";
+      desc = "Read in the reference state xref";
+      sw = w;
+      hw = r;
+      singlepulse;
+    } UPDATE_CONTROLLER_REFERENCE[1] = 0; 
+
+    field {
+      name = "Update State";
+      desc = "Read in the system state xstate";
+      sw = w;
+      hw = r;
+      singlepulse;
+    } UPDATE_CONTROLLER_STATE[1] = 0; 
+
   } CMD;
 
 
@@ -98,54 +123,41 @@ regfile controller_t {
   // Data pointers //
   ///////////////////////////////
 
+  field pointer_hwro_t {
+    name = "Pointer";
+    sw = w;
+    hw = r;
+    reset = 0x00000000;
+  };
+
   reg {
     name = "K matrix memory pointer";
     desc = "Memory pointer to the K matrix, expected Matrix: K(4x12) Q4.4, row maj";
-    field {
-      name = "Pointer";
-      sw = w;
-      hw = r;
-    } POINTER[32] = 0x00000000;
+    pointer_hwro_t POINTER[32];
   } K_MATRIX;
 
   reg {
     name = "State refernce x_ref";
     desc = "Memory pointer to the x_ref vector, expected Vector: x_ref(12) Q4.4, row maj";
-    field {
-      name = "Pointer";
-      sw = w;
-      hw = r;
-    } POINTER[32] = 0x00000000;
+    pointer_hwro_t POINTER[32];
   } X_REF_VEC;
 
   reg {
     name = "State input x_in";
     desc = "Memory pointer to the x_in vector, expected Vector: x_in(12) Q4.4, row maj";
-    field {
-      name = "Pointer";
-      sw = w;
-      hw = r;
-    } POINTER[32] = 0x00000000;
+    pointer_hwro_t POINTER[32];
   } X_IN_VEC;
 
   reg {
     name = "Open loop control U0";
     desc = "Memory pointer to the U0 vector, expected Vector: U0(4) Q4.4, row maj";
-    field {
-      name = "Pointer";
-      sw = w;
-      hw = r;
-    } POINTER[32] = 0x00000000;
+    pointer_hwro_t POINTER[32];
   } U0_VEC;
 
   reg {
     name = "Open loop control U_out=K(Xin-Xref)+U0";
     desc = "Memory pointer to the U_out vector, output Vector: U0(4) Q4.4, row maj";
-    field {
-      name = "Pointer";
-      sw = w;
-      hw = r;
-    } POINTER[32] = 0x00000000;
+    pointer_hwro_t POINTER[32];
   } U_OUT_VEC;
 
 };

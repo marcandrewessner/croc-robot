@@ -47,47 +47,46 @@ package drone_controller_reg_pkg;
     } controller_t__CMD__RUN_CALC__out_t;
 
     typedef struct {
+        logic value;
+    } controller_t__CMD__UPDATE_CONTROLLER__out_t;
+
+    typedef struct {
+        logic value;
+    } controller_t__CMD__UPDATE_CONTROLLER_REFERENCE__out_t;
+
+    typedef struct {
+        logic value;
+    } controller_t__CMD__UPDATE_CONTROLLER_STATE__out_t;
+
+    typedef struct {
         controller_t__CMD__RUN_CALC__out_t RUN_CALC;
+        controller_t__CMD__UPDATE_CONTROLLER__out_t UPDATE_CONTROLLER;
+        controller_t__CMD__UPDATE_CONTROLLER_REFERENCE__out_t UPDATE_CONTROLLER_REFERENCE;
+        controller_t__CMD__UPDATE_CONTROLLER_STATE__out_t UPDATE_CONTROLLER_STATE;
     } controller_t__CMD__out_t;
 
     typedef struct {
         logic [31:0] value;
-    } controller_t__K_MATRIX__POINTER__out_t;
+    } controller_t__pointer_hwro_t_w32__out_t;
 
     typedef struct {
-        controller_t__K_MATRIX__POINTER__out_t POINTER;
+        controller_t__pointer_hwro_t_w32__out_t POINTER;
     } controller_t__K_MATRIX__out_t;
 
     typedef struct {
-        logic [31:0] value;
-    } controller_t__X_REF_VEC__POINTER__out_t;
-
-    typedef struct {
-        controller_t__X_REF_VEC__POINTER__out_t POINTER;
+        controller_t__pointer_hwro_t_w32__out_t POINTER;
     } controller_t__X_REF_VEC__out_t;
 
     typedef struct {
-        logic [31:0] value;
-    } controller_t__X_IN_VEC__POINTER__out_t;
-
-    typedef struct {
-        controller_t__X_IN_VEC__POINTER__out_t POINTER;
+        controller_t__pointer_hwro_t_w32__out_t POINTER;
     } controller_t__X_IN_VEC__out_t;
 
     typedef struct {
-        logic [31:0] value;
-    } controller_t__U0_VEC__POINTER__out_t;
-
-    typedef struct {
-        controller_t__U0_VEC__POINTER__out_t POINTER;
+        controller_t__pointer_hwro_t_w32__out_t POINTER;
     } controller_t__U0_VEC__out_t;
 
     typedef struct {
-        logic [31:0] value;
-    } controller_t__U_OUT_VEC__POINTER__out_t;
-
-    typedef struct {
-        controller_t__U_OUT_VEC__POINTER__out_t POINTER;
+        controller_t__pointer_hwro_t_w32__out_t POINTER;
     } controller_t__U_OUT_VEC__out_t;
 
     typedef struct {
@@ -105,16 +104,16 @@ package drone_controller_reg_pkg;
     } drone_controller_reg__out_t;
 
     typedef enum logic [1:0] {
-        pwm_mode_e__PWM_MODE_DISABLED = 'h0,
-        pwm_mode_e__PWM_MODE_EDGE_ALIGNED = 'h1,
-        pwm_mode_e__PWM_MODE_CENTER_ALIGNED = 'h2,
-        pwm_mode_e__PWM_MODE_RESERVED = 'h3
-    } pwm_mode_e_e;
+        pwm_mode__PWM_MODE_DISABLED = 'h0,
+        pwm_mode__pwm_modeDGE_ALIGNED = 'h1,
+        pwm_mode__PWM_MODE_CENTER_ALIGNED = 'h2,
+        pwm_mode__PWM_MODE_RESERVED = 'h3
+    } pwm_mode_e;
 
     typedef enum logic [1:0] {
-        pwm_clk_div_e__CLK_DIV_1 = 'h0,
-        pwm_clk_div_e__CLK_DIV_2 = 'h1,
-        pwm_clk_div_e__CLK_DIV_4 = 'h2,
-        pwm_clk_div_e__CLK_DIV_8 = 'h3
-    } pwm_clk_div_e_e;
+        pwm_clk_div__CLK_DIV_1 = 'h0,
+        pwm_clk_div__CLK_DIV_2 = 'h1,
+        pwm_clk_div__CLK_DIV_4 = 'h2,
+        pwm_clk_div__CLK_DIV_8 = 'h3
+    } pwm_clk_div_e;
 endpackage

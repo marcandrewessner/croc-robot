@@ -10,7 +10,7 @@
     <dt>Base Offset:</dt><dd class="address">0x0</dd>
     <dt>Size:</dt><dd class="address">0x4</dd>
     
-    <dt>Source:</dt><dd><a href="https://github.com/marcandrewessner/croc-robot/blob/main/rtl/drone_controller/reg/drone_controller_reg_definition.rdl#L82" target="_blank">drone_controller_reg_definition.rdl</a></dd>
+    <dt>Source:</dt><dd><a href="https://github.com/marcandrewessner/croc-robot/blob/main/rtl/drone_controller/reg/drone_controller_reg_definition.rdl#L83" target="_blank">drone_controller_reg_definition.rdl</a></dd>
     
 </dl>
 <h2>Description</h2>
@@ -30,7 +30,7 @@
         <th></th>
     </tr>
     <tr class="reserved-field">
-    <td>[31:1]</td>
+    <td>[31:4]</td>
     <td>-</td>
     <td>-</td>
     <td>-</td>
@@ -38,6 +38,66 @@
     <td>-</td>
     <td></td>
 </tr>
+    <tr id="UPDATE_CONTROLLER_STATE">
+        <td>[3]</td>
+        <td><a href="#UPDATE_CONTROLLER_STATE.desc">UPDATE_CONTROLLER_STATE</a></td>
+        <td>
+            <span title='Write-only'>w</span></td>
+        <td>0x0
+        </td>
+        <td>
+            <input id="_FieldValueTesterUPDATE_CONTROLLER_STATE" class="field-value-tester"
+                type="text" autocomplete="off"
+                data-name="UPDATE_CONTROLLER_STATE" oninput="onDecodedFieldInput(this)"/>
+        </td>
+        <td>Update State</td>
+        <td>
+            <button type="button" id="_RadixButtonUPDATE_CONTROLLER_STATE" class="radix-button"
+                title="Switch radix" aria-label="Switch radix"
+                data-name="UPDATE_CONTROLLER_STATE" onclick="onRadixSwitch(this)">H</button>
+            <a class="headerlink" href="#UPDATE_CONTROLLER_STATE" title="Permalink to this row"></a>
+        </td>
+    </tr>
+    <tr id="UPDATE_CONTROLLER_REFERENCE">
+        <td>[2]</td>
+        <td><a href="#UPDATE_CONTROLLER_REFERENCE.desc">UPDATE_CONTROLLER_REFERENCE</a></td>
+        <td>
+            <span title='Write-only'>w</span></td>
+        <td>0x0
+        </td>
+        <td>
+            <input id="_FieldValueTesterUPDATE_CONTROLLER_REFERENCE" class="field-value-tester"
+                type="text" autocomplete="off"
+                data-name="UPDATE_CONTROLLER_REFERENCE" oninput="onDecodedFieldInput(this)"/>
+        </td>
+        <td>Update Reference</td>
+        <td>
+            <button type="button" id="_RadixButtonUPDATE_CONTROLLER_REFERENCE" class="radix-button"
+                title="Switch radix" aria-label="Switch radix"
+                data-name="UPDATE_CONTROLLER_REFERENCE" onclick="onRadixSwitch(this)">H</button>
+            <a class="headerlink" href="#UPDATE_CONTROLLER_REFERENCE" title="Permalink to this row"></a>
+        </td>
+    </tr>
+    <tr id="UPDATE_CONTROLLER">
+        <td>[1]</td>
+        <td><a href="#UPDATE_CONTROLLER.desc">UPDATE_CONTROLLER</a></td>
+        <td>
+            <span title='Write-only'>w</span></td>
+        <td>0x0
+        </td>
+        <td>
+            <input id="_FieldValueTesterUPDATE_CONTROLLER" class="field-value-tester"
+                type="text" autocomplete="off"
+                data-name="UPDATE_CONTROLLER" oninput="onDecodedFieldInput(this)"/>
+        </td>
+        <td>Update Controller</td>
+        <td>
+            <button type="button" id="_RadixButtonUPDATE_CONTROLLER" class="radix-button"
+                title="Switch radix" aria-label="Switch radix"
+                data-name="UPDATE_CONTROLLER" onclick="onRadixSwitch(this)">H</button>
+            <a class="headerlink" href="#UPDATE_CONTROLLER" title="Permalink to this row"></a>
+        </td>
+    </tr>
     <tr id="RUN_CALC">
         <td>[0]</td>
         <td><a href="#RUN_CALC.desc">RUN_CALC</a></td>
@@ -67,6 +127,27 @@
     </label>
 </p>
 <hr/><h2>Field Descriptions</h2>
+
+<h3 id="UPDATE_CONTROLLER_STATE.desc">UPDATE_CONTROLLER_STATE - Update State
+    <a class="headerlink" href="#UPDATE_CONTROLLER_STATE.desc" title="Permalink to this headline"></a>
+</h3>
+<div id="_Content.UPDATE_CONTROLLER_STATE.desc">
+<p>Read in the system state xstate</p>
+</div>
+
+<h3 id="UPDATE_CONTROLLER_REFERENCE.desc">UPDATE_CONTROLLER_REFERENCE - Update Reference
+    <a class="headerlink" href="#UPDATE_CONTROLLER_REFERENCE.desc" title="Permalink to this headline"></a>
+</h3>
+<div id="_Content.UPDATE_CONTROLLER_REFERENCE.desc">
+<p>Read in the reference state xref</p>
+</div>
+
+<h3 id="UPDATE_CONTROLLER.desc">UPDATE_CONTROLLER - Update Controller
+    <a class="headerlink" href="#UPDATE_CONTROLLER.desc" title="Permalink to this headline"></a>
+</h3>
+<div id="_Content.UPDATE_CONTROLLER.desc">
+<p>Read in the controller matrix K and open loop vec U0</p>
+</div>
 
 <h3 id="RUN_CALC.desc">RUN_CALC - Run Calculation
     <a class="headerlink" href="#RUN_CALC.desc" title="Permalink to this headline"></a>

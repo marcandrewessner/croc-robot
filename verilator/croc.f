@@ -168,9 +168,10 @@
 ../rtl/gpio/gpio_reg_pkg.sv
 ../rtl/clint/clint_reg_pkg.sv
 ../rtl/obi_timer/obi_timer_reg_pkg.sv
-../rtl/drone_controller/pwm/pwm_gen_pkg.sv
-../rtl/drone_controller/reg/drone_controller_reg_pkg.sv
 ../rtl/drone_controller/drone_controller_pkg.sv
+../rtl/drone_controller/reg/drone_controller_reg_pkg.sv
+../rtl/drone_controller/pwm/pwm_gen_pkg.sv
+../rtl/drone_controller/controller/controller_pkg.sv
 ../rtl/core_wrap.sv
 ../rtl/bootrom/bootrom.sv
 ../rtl/soc_ctrl/soc_ctrl_regs.sv
@@ -185,6 +186,8 @@
 ../rtl/drone_controller/pwm/pwm_gen_top.sv
 ../rtl/drone_controller/pwm/pwm_gen_driver.sv
 ../rtl/drone_controller/pwm/pwm_gen_clk_dividers.sv
+../rtl/drone_controller/controller/controller_top.sv
+../rtl/drone_controller/controller/controller_memory_interface.sv
 ../rtl/croc_soc.sv
 ../rtl/croc_chip.sv
 ../rtl/test/tb_croc_pkg.sv

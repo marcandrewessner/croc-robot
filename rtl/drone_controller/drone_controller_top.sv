@@ -65,5 +65,18 @@ module drone_controller_top import drone_controller_pkg::*; #(
     .pwm_signal_o ( pwm_out_o )
   );
 
+  // Controller U = K(Xref-Xstate) + U0
+  controller_top #(
+    .reg2hw_t      ( drone_reg2hw_t ),
+    .mgr_obi_req_t ( mgr_obi_req_t ),
+    .mgr_obi_rsp_t ( mgr_obi_rsp_t )
+  ) i_controller_top (
+    .clk_i,
+    .rst_ni,
+    .mgr_obi_req_o ( mgr_obi_req_o ),
+    .mgr_obi_rsp_i ( mgr_obi_rsp_i ),
+    .reg2hw        ( reg2hw )
+  );
+
 
 endmodule
