@@ -1,10 +1,10 @@
 
 //////////////////////
-// Vec A+B  //
+// Vec A-B  //
 // unpacked //
 //////////////////////
 
-module vec_add_signed_sat #(
+module vec_sub_signed_sat #(
   parameter int VEC_W,     // Define how many items the vector (unpacked list)
   parameter int NUM_W = 8, // Define the width of the data items
   // Types used in module
@@ -27,7 +27,7 @@ module vec_add_signed_sat #(
       // Extend the data for overflow detection
       a_ext = {A_i[i][NUM_W-1], A_i[i]};
       b_ext = {B_i[i][NUM_W-1], B_i[i]};
-      x_ext = a_ext + b_ext;
+      x_ext = a_ext - b_ext;
       
       // Overflow detected when top 2 bits differ: 10 = neg overflow, 01 = pos overflow
       unique case (x_ext[NUM_EXT_W-1 -: 2])

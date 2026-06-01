@@ -35,7 +35,7 @@ int main() {
 
   for(int i=0; i<12; i++){
     XREF_vec[i]   = i;
-    XSTATE_vec[i] = i;
+    XSTATE_vec[i] = i*2;
   }
   
   // Find the addresses

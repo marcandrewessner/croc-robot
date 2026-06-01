@@ -34,7 +34,14 @@ package controller_pkg;
   } pkdw_fxp_s8_q4p4_t;
 
   ////////////////////////////
-  // Read Memory FSM //
+  // Vector calculation //
+  ////////////////////////////
+  localparam int K_MATRIX_DIM [2] = { 'd4, 'd12 };
+  localparam int X_VEC_DIM = 'd12;
+  localparam int U_VEC_DIM = 'd4;
+
+  ////////////////////////////
+  // Memory //
   ////////////////////////////
   // note this is already in read order, 
   typedef enum logic [2:0] {
@@ -46,11 +53,6 @@ package controller_pkg;
     READ_MEM_FSM_STATE_5_VEC_XSTATE  // jump here to update x state
   } read_mem_fsm_state_e;
 
-  ////////////////////////////
-  // Define data structure //
-  ////////////////////////////
-  localparam int K_MATRIX_DIM [2] = { 'd4, 'd12 };
-  localparam int X_VEC_DIM = 'd12;
-  localparam int U_VEC_DIM = 'd4;
+ 
 
 endpackage 

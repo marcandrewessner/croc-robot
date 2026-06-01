@@ -188,6 +188,9 @@
 ../rtl/drone_controller/pwm/pwm_gen_clk_dividers.sv
 ../rtl/drone_controller/controller/controller_top.sv
 ../rtl/drone_controller/controller/controller_memory_interface.sv
+../rtl/drone_controller/vector_arithmetic/vec_add_signed_sat.sv
+../rtl/drone_controller/vector_arithmetic/vec_sub_signed_sat.sv
+../rtl/drone_controller/vector_arithmetic/vec_dot_signed_sat.sv
 ../rtl/croc_soc.sv
 ../rtl/croc_chip.sv
 ../rtl/test/tb_croc_pkg.sv

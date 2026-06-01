@@ -39,18 +39,56 @@ module controller_top import controller_pkg::*; #(
   fxp_s8_q4p4_vec12_t xstate_d, xstate_q;
   fxp_s8_q4p4_vec4_t u0_d, u0_q;
 
+  // Output variable
+  fxp_s8_q4p4_t uout_d, uout_q;
+
   // Define FF q<=d
   `FF(matk_q, matk_d, '{default: '0}, clk_i, rst_ni)
   `FF(xref_q, xref_d, '0, clk_i, rst_ni)
   `FF(xstate_q, xstate_d, '0, clk_i, rst_ni)
   `FF(u0_q, u0_d, '0, clk_i, rst_ni)
+  `FF(uout_q, uout_d, '0, clk_i, rst_ni)
+
 
   ////////////////////////////
   // Vec calculations //
   ////////////////////////////
+  fxp_s8_q4p4_vec4_t k_dot_x_result_d, k_dot_x_result_q;
+  fxp_s8_q4p4_vec12_t x_err_d, x_err_q;
 
-  // TODO calculate the controller
+  // x_err = x_ref - x_state
+  vec_sub_signed_sat #(
+    .VEC_W ( X_VEC_DIM ),
+    .NUM_W ( 8 )
+  ) i_vec_sub_signed_sat_xerr (
+    .A_i ( xref_q ),
+    .B_i ( xstate_q ),
+    .X_o ( x_err_d )
+  );
 
+  // Calculate K*xerr
+  for(genvar i=0; i<K_MATRIX_DIM[0]; i++) begin
+    vec_dot_signed_sat #(
+      .VEC_W ( X_VEC_DIM ),
+      .NUM_W ( 8 )
+    ) i_vec12_dot_signed_sat_kdotxe (
+      .A_i ( x_err_q ),
+      .B_i ( matk_q[i] ),
+      .X_o ( k_dot_x_result_d[i] )
+    );
+  end
+
+  vec_add_signed_sat #(
+    .VEC_W ( U_VEC_DIM ),
+    .NUM_W ( 8 )
+  ) i_vec4_add_signed_sat_uout (
+    .A_i ( u0_q ),
+    .B_i ( k_dot_x_result_q ),
+    .X_o ( uout_d )
+  );
+
+  `FF(x_err_q, x_err_d, '0, clk_i, rst_ni)
+  `FF(k_dot_x_result_q, k_dot_x_result_d, '0, clk_i, rst_ni)
 
   ////////////////////////////
   // Memory Interface //
